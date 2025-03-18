@@ -1,5 +1,1 @@
-function buyToken() {
-    const message = document.getElementById("buy-message");
-    message.textContent = "Agent activation simulated! BANKER is now DCAing into MAX.";
-    setTimeout(() => message.textContent = "", 3000);
-}
+function toggleMenu() { var nav = document.getElementById("myTopnav"); if (nav.className === "topnav") { nav.className += " responsive"; } else { nav.className = "topnav"; } } document.querySelectorAll(".topnav a:not(.icon)").forEach(function(link) { link.addEventListener("click", function() { var nav = document.getElementById("myTopnav"); nav.className = "topnav"; }); });
