@@ -1,1 +1,100 @@
-<!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>BANKER - DCA Agent for MAX</title> <link rel="stylesheet" href="styles.css"> <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> </head> <body> <div class="topnav" id="myTopnav"> <a href="#home" class="active"> <div class="logo-container"> <img src="assets/images/bull-image.png" alt="BANKER Bull Logo" class="bull-image"> <span class="logo-text">Banker.Land</span> </div> </a> <a href="javascript:void(0);" class="icon" onclick="toggleMenu()"> <i class="fa fa-bars"></i> </a> </div> <div class="menu-backdrop" id="menuBackdrop" onclick="closeMenu()"></div> <div class="menu" id="sideMenu"> <a href="#home" onclick="closeMenu()">Home</a> <a href="#community" onclick="closeMenu()">Community</a> <h3 class="menu-headline">Services</h3> <a href="https://raydium.io/swap/?inputMint=sol&outputMint=oraiBbhuMd7MeVxyBjtnK8sggprf2NpHkeJaeHzpBFK" target="_blank" onclick="closeMenu()"> <img src="assets/icons/buy.svg" alt="Buy Icon" class="menu-icon"> Buy </a> <a href="https://mesh.distilled.ai/staking?token=oraiBbhuMd7MeVxyBjtnK8sggprf2NpHkeJaeHzpBFK" target="_blank" onclick="closeMenu()"> <img src="assets/icons/stake.svg" alt="Stake Icon" class="menu-icon"> Stake </a> <a href="https://mesh.distilled.ai/dao/oraiBbhuMd7MeVxyBjtnK8sggprf2NpHkeJaeHzpBFK/proposals" target="_blank" onclick="closeMenu()"> <img src="assets/icons/dao.svg" alt="DAO Icon" class="menu-icon"> DAO </a> <a href="https://solscan.io/account/AWqnz28WQbLgrGDPQxctz6ao6wXq68RHFjfYeFZPgJx2#transfers" target="_blank" onclick="closeMenu()"> <img src="assets/icons/wallet.svg" alt="Wallet Icon" class="menu-icon"> Wallet </a> <a href="https://agents.land/trading/oraiBbhuMd7MeVxyBjtnK8sggprf2NpHkeJaeHzpBFK" target="_blank" onclick="closeMenu()"> <img src="assets/icons/agents-land.svg" alt="Agents.Land Icon" class="menu-icon"> Agents.Land </a> <a href="https://mesh.distilled.ai/clan/@BankerADL" target="_blank" onclick="closeMenu()"> <img src="assets/icons/mesh.svg" alt="Mesh Icon" class="menu-icon"> Mesh </a> </div> <section class="agent-card"> <img src="assets/images/agent-card.webp" alt="BANKER Agent Card" class="agent-card-image"> </section> <section id="home" class="hero"> <h1>BANKER</h1> <p>A community-driven AI agent built on the agents.land launchpad managing finances with a future-focused approach of leveraging dollar-cost averaging and decentralized finance tools to optimize growth within the $MAX token ecosystem.</p> <div class="chart-wrapper"> <div id="dexscreener-embed"> <iframe src="https://dexscreener.com/solana/9ZJtr5c9nE2Cr2eG64Y7E1gYC2NykMssc71CRopkSpD4?embed=1&refreshInterval=5&disableCache=1&chartTheme=dark&interval=15"></iframe> </div> </div> </section> <section id="community" class="section"> <div class="social-links"> <a href="https://x.com/BANKERADL" target="_blank"> <svg class="social-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"> <path d="M18.901 1.153H22.581L14.541 10.343L24 22.846H16.594L10.794 15.262L4.156 22.846H0.435L9.074 12.915L0 1.154H7.594L12.837 8.086L18.901 1.153ZM17.61 20.644H19.649L6.486 3.24H4.298L17.61 20.644Z" fill="currentColor"/> </svg> </a> <a href="https://t.me/BANKERADLAI" target="_blank"> <svg class="social-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"> <path d="M12 0C5.373 0 0 5.373 0 12C0 18.627 5.373 24 12 24C18.627 24 24 18.627 24 12C24 5.373 18.627 0 12 0ZM18.578 7.2L16.825 17.812C16.71 18.502 16.29 18.668 15.725 18.325L12.428 15.875L10.86 17.362C10.66 17.562 10.493 17.729 10.105 17.729L10.345 14.4L16.025 9.34C16.305 9.09 15.965 8.95 15.605 9.2L8.533 13.5L5.29 12.45C4.62 12.23 4.61 11.75 5.445 11.4L17.74 6.165C18.31 5.93 18.81 6.25 18.578 7.2Z" fill="currentColor"/> </svg> Telegram </a> </div> </section> <footer> <p>Banker.Land • All rights reserved</p> </footer> <script src="script.js"></script> </body> </html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BANKER - DCA Agent for MAX</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    <div class="topnav" id="myTopnav">
+        <a href="#home" class="active">
+            <div class="logo-container">
+                <img src="assets/images/bull-image.png" alt="BANKER Bull Logo" class="bull-image">
+                <span class="logo-text">Banker.Land</span>
+            </div>
+        </a>
+        <a href="javascript:void(0);" class="icon" onclick="toggleMenu()">
+            <i class="fa fa-bars"></i>
+        </a>
+    </div>
+    
+    <div class="menu-backdrop" id="menuBackdrop" onclick="closeMenu()"></div>
+    
+    <div class="menu" id="sideMenu">
+        <a href="#home" onclick="closeMenu()">Home</a>
+        <a href="#community" onclick="closeMenu()">Community</a>
+        
+        <h3 class="menu-headline">Services</h3>
+        <a href="https://raydium.io/swap/?inputMint=sol&outputMint=oraiBbhuMd7MeVxyBjtnK8sggprf2NpHkeJaeHzpBFK" target="_blank" onclick="closeMenu()">
+            <img src="assets/icons/buy.svg" alt="Buy Icon" class="menu-icon"> Buy
+        </a>
+        <a href="https://mesh.distilled.ai/staking?token=oraiBbhuMd7MeVxyBjtnK8sggprf2NpHkeJaeHzpBFK" target="_blank" onclick="closeMenu()">
+            <img src="assets/icons/stake.svg" alt="Stake Icon" class="menu-icon"> Stake
+        </a>
+        <a href="https://mesh.distilled.ai/dao/oraiBbhuMd7MeVxyBjtnK8sggprf2NpHkeJaeHzpBFK/proposals" target="_blank" onclick="closeMenu()">
+            <img src="assets/icons/dao.svg" alt="DAO Icon" class="menu-icon"> DAO
+        </a>
+        <a href="https://solscan.io/account/AWqnz28WQbLgrGDPQxctz6ao6wXq68RHFjfYeFZPgJx2#transfers" target="_blank" onclick="closeMenu()">
+            <img src="assets/icons/wallet.svg" alt="Wallet Icon" class="menu-icon"> Wallet
+        </a>
+        <a href="https://agents.land/trading/oraiBbhuMd7MeVxyBjtnK8sggprf2NpHkeJaeHzpBFK" target="_blank" onclick="closeMenu()">
+            <img src="assets/icons/agents-land.svg" alt="Agents.Land Icon" class="menu-icon"> Agents.Land
+        </a>
+        <a href="https://mesh.distilled.ai/clan/@BankerADL" target="_blank" onclick="closeMenu()">
+            <img src="assets/icons/mesh.svg" alt="Mesh Icon" class="menu-icon"> Mesh
+        </a>
+
+        <h3 class="menu-headline">Support</h3>
+        <a href="#faq" onclick="closeMenu()">
+            <svg class="menu-icon" width="24" height="24" viewBox="0 0 24 24" fill="#000000" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-4h2v2h-2zm1.61-9.96c-2.06-.3-3.61 1.14-3.61 2.96h2c0-.55.45-1 1-1s1 .45 1 1c0 .3-.1 1.25-.64 1.86-.43.5-1.08.79-1.36 1.34v.4h2v-.1c0-.79.48-1.27 1.15-1.85.67-.58 1.18-1.4 1.18-2.35 0-1.31-.99-2.35-2.39-2.35z"/>
+            </svg>
+            FAQ
+        </a>
+        <a href="contact.html" onclick="closeMenu()">
+            <svg class="menu-icon" width="24" height="24" viewBox="0 0 24 24" fill="#000000" xmlns="http://www.w3.org/2000/svg">
+                <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4V8l8 5 8-5v10zm-8-7L4 6h16l-8 5z"/>
+            </svg>
+            Contact Us
+        </a>
+    </div>
+
+    <section class="agent-card">
+        <img src="assets/images/agent-card.webp" alt="BANKER Agent Card" class="agent-card-image">
+    </section>
+
+    <section id="home" class="hero">
+        <h1>BANKER</h1>
+        <p>A community-driven AI agent built on the agents.land launchpad managing finances with a future-focused approach of leveraging dollar-cost averaging and decentralized finance tools to optimize growth within the $MAX token ecosystem.</p>
+        <div class="chart-wrapper">
+            <div id="dexscreener-embed">
+                <iframe src="https://dexscreener.com/solana/9ZJtr5c9nE2Cr2eG64Y7E1gYC2NykMssc71CRopkSpD4?embed=1&refreshInterval=5&disableCache=1&chartTheme=dark&interval=15"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <section id="community" class="section">
+        <div class="social-links">
+            <a href="https://x.com/BANKERADL" target="_blank">
+                <svg class="social-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M18.901 1.153H22.581L14.541 10.343L24 22.846H16.594L10.794 15.262L4.156 22.846H0.435L9.074 12.915L0 1.154H7.594L12.837 8.086L18.901 1.153ZM17.61 20.644H19.649L6.486 3.24H4.298L17.61 20.644Z" fill="currentColor"/>
+                </svg>
+            </a>
+            <a href="https://t.me/BANKERADLAI" target="_blank">
+                <svg class="social-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 0C5.373 0 0 5.373 0 12C0 18.627 5.373 24 12 24C18.627 24 24 18.627 24 12C24 5.373 18.627 0 12 0ZM18.578 7.2L16.825 17.812C16.71 18.502 16.29 18.668 15.725 18.325L12.428 15.875L10.86 17.362C10.66 17.562 10.493 17.729 10.105 17.729L10.345 14.4L16.025 9.34C16.305 9.09 15.965 8.95 15.605 9.2L8.533 13.5L5.29 12.45C4.62 12.23 4.61 11.75 5.445 11.4L17.74 6.165C18.31 5.93 18.81 6.25 18.578 7.2Z" fill="currentColor"/>
+                </svg>
+                Telegram
+            </a>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2025 Banker.Land • All rights reserved</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
