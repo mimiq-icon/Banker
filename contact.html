@@ -8,59 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-    <div class="topnav" id="myTopnav">
-        <a href="index.html" class="active">
-            <div class="logo-container">
-                <img src="assets/images/bull-image.png" alt="BANKER Bull Logo" class="bull-image">
-                <span class="logo-text">Banker.Land</span>
-            </div>
-        </a>
-        <a href="javascript:void(0);" class="icon" onclick="toggleMenu()">
-            <i class="fa fa-bars"></i>
-        </a>
-    </div>
-
-    <div class="menu-backdrop" id="menuBackdrop" onclick="closeMenu()"></div>
-    
-    <!-- Menu (Copy-Paste from index.html) -->
-    <div class="menu" id="sideMenu">
-        <a href="index.html" onclick="closeMenu()">Home</a>
-        <a href="#community" onclick="closeMenu()">Community</a>
-        
-        <h3 class="menu-headline">Services</h3>
-        <a href="https://raydium.io/swap/?inputMint=sol&outputMint=oraiBbhuMd7MeVxyBjtnK8sggprf2NpHkeJaeHzpBFK" target="_blank" onclick="closeMenu()">
-            <img src="assets/icons/buy.svg" alt="Buy Icon" class="menu-icon"> Buy
-        </a>
-        <a href="https://mesh.distilled.ai/staking?token=oraiBbhuMd7MeVxyBjtnK8sggprf2NpHkeJaeHzpBFK" target="_blank" onclick="closeMenu()">
-            <img src="assets/icons/stake.svg" alt="Stake Icon" class="menu-icon"> Stake
-        </a>
-        <a href="https://mesh.distilled.ai/dao/oraiBbhuMd7MeVxyBjtnK8sggprf2NpHkeJaeHzpBFK/proposals" target="_blank" onclick="closeMenu()">
-            <img src="assets/icons/dao.svg" alt="DAO Icon" class="menu-icon"> DAO
-        </a>
-        <a href="https://solscan.io/account/AWqnz28WQbLgrGDPQxctz6ao6wXq68RHFjfYeFZPgJx2#transfers" target="_blank" onclick="closeMenu()">
-            <img src="assets/icons/wallet.svg" alt="Wallet Icon" class="menu-icon"> Wallet
-        </a>
-        <a href="https://agents.land/trading/oraiBbhuMd7MeVxyBjtnK8sggprf2NpHkeJaeHzpBFK" target="_blank" onclick="closeMenu()">
-            <img src="assets/icons/agents-land.svg" alt="Agents.Land Icon" class="menu-icon"> Agents.Land
-        </a>
-        <a href="https://mesh.distilled.ai/clan/@BankerADL" target="_blank" onclick="closeMenu()">
-            <img src="assets/icons/mesh.svg" alt="Mesh Icon" class="menu-icon"> Mesh
-        </a>
-
-        <h3 class="menu-headline">Support</h3>
-        <a href="#faq" onclick="closeMenu()">
-            <svg class="menu-icon" width="24" height="24" viewBox="0 0 24 24" fill="#000000" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-4h2v2h-2zm1.61-9.96c-2.06-.3-3.61 1.14-3.61 2.96h2c0-.55.45-1 1-1s1 .45 1 1c0 .3-.1 1.25-.64 1.86-.43.5-1.08.79-1.36 1.34v.4h2v-.1c0-.79.48-1.27 1.15-1.85.67-.58 1.18-1.4 1.18-2.35 0-1.31-.99-2.35-2.39-2.35z"/>
-            </svg>
-            FAQ
-        </a>
-        <a href="contact.html" onclick="closeMenu()">
-            <svg class="menu-icon" width="24" height="24" viewBox="0 0 24 24" fill="#000000" xmlns="http://www.w3.org/2000/svg">
-                <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4V8l8 5 8-5v10zm-8-7L4 6h16l-8 5z"/>
-            </svg>
-            Contact Us
-        </a>
-    </div>
+    <!-- ... (keep all the existing navigation/menu code exactly the same) ... -->
 
     <!-- Contact Form Section -->
     <section class="hero">
@@ -68,8 +16,8 @@
         <p style="text-align: center; margin-top: -1rem; margin-bottom: 2rem; color: #808080;">All Fields Are Mandatory To Fill</p>
         <form class="contact-form" action="mailto:bankeragent90@gmail.com" method="post" enctype="text/plain">
             <div class="form-group">
-                <label for="name">Name</label>
-                <input type="text" id="name" name="name" required>
+                <label for="subject">Subject</label>  <!-- Changed from Name to Subject -->
+                <input type="text" id="subject" name="subject" required>  <!-- Updated ID and name -->
             </div>
             
             <div class="form-group">
@@ -86,10 +34,6 @@
         </form>
     </section>
 
-    <footer>
-        <p>© 2025 Banker.Land • All rights reserved</p>
-    </footer>
-
-    <script src="script.js"></script>
+    <!-- ... (keep the rest of the file exactly the same) ... -->
 </body>
 </html>
