@@ -6,8 +6,77 @@
     <title>BANKER - DCA Agent for MAX</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        .docs-tip {
+            position: fixed;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(26, 26, 26, 0.9);
+            color: white;
+            padding: 10px 5px;
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+            font-size: 0.8rem;
+            border-top-right-radius: 5px;
+            border-bottom-right-radius: 5px;
+            cursor: pointer;
+            z-index: 999;
+            transition: all 0.3s ease;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.2);
+            touch-action: none;
+        }
+        .docs-tip:hover, .docs-tip.touched {
+            transform: translateY(-50%) translateX(5px);
+        }
+        .whitepaper-container {
+            position: fixed;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            z-index: 1002;
+            transition: left 0.3s ease;
+            overflow: hidden;
+        }
+        .whitepaper-container.active {
+            left: 0;
+        }
+        .whitepaper-iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        .close-whitepaper {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 1003;
+            background: rgba(0,0,0,0.7);
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+    </style>
 </head>
 <body>
+    <!-- Docs Tip -->
+    <div class="docs-tip" id="docsTip">docs</div>
+
+    <!-- Whitepaper Viewer -->
+    <div class="whitepaper-container" id="whitepaperContainer">
+        <span class="close-whitepaper" onclick="closeWhitepaper()">×</span>
+        <iframe class="whitepaper-iframe" src="https://docs.google.com/viewer?url=https://banker.land/assets/docs/whitepaper.pdf&embedded=true"></iframe>
+    </div>
+
+    <!-- Original Top Navigation -->
     <div class="topnav" id="myTopnav">
         <a href="#home" class="active">
             <div class="logo-container">
@@ -22,6 +91,7 @@
     
     <div class="menu-backdrop" id="menuBackdrop" onclick="closeMenu()"></div>
     
+    <!-- Original Side Menu -->
     <div class="menu" id="sideMenu">
         <a href="#home" onclick="closeMenu()">Home</a>
         <a href="#community" onclick="closeMenu()">Community</a>
@@ -65,10 +135,12 @@
         </div>
     </div>
 
+    <!-- Original Agent Card Section -->
     <section class="agent-card">
         <img src="assets/images/agent-card.webp" alt="BANKER Agent Card" class="agent-card-image">
     </section>
 
+    <!-- Original Hero Section -->
     <section id="home" class="hero">
         <h1>BANKER</h1>
         <p>A community-driven AI agent built on the agents.land launchpad managing finances with a future-focused approach of leveraging dollar-cost averaging and decentralized finance tools to optimize growth within the $MAX token ecosystem.</p>
@@ -79,6 +151,7 @@
         </div>
     </section>
 
+    <!-- Original Community Section -->
     <section id="community" class="section">
         <div class="social-links">
             <a href="https://x.com/BANKERADL" target="_blank">
@@ -99,11 +172,77 @@
         </div>
     </section>
 
+    <!-- Original Footer -->
     <footer>
         <p>© 2025 Banker.Land • All rights reserved</p>
     </footer>
 
     <script>
+        // Improved docs tip functionality
+        const docsTip = document.getElementById('docsTip');
+        const whitepaperContainer = document.getElementById('whitepaperContainer');
+        let startX = 0;
+        let currentX = 0;
+        let isDragging = false;
+        let touchStartTime = 0;
+
+        // Touch/click handlers
+        docsTip.addEventListener('click', handleDocsClick);
+        docsTip.addEventListener('touchstart', handleTouchStart, {passive: false});
+        docsTip.addEventListener('touchmove', handleTouchMove, {passive: false});
+        docsTip.addEventListener('touchend', handleTouchEnd);
+
+        function handleDocsClick(e) {
+            if (!isDragging) {
+                // Simple click - just show the pop effect
+                docsTip.classList.add('touched');
+                setTimeout(() => {
+                    docsTip.classList.remove('touched');
+                    whitepaperContainer.classList.add('active');
+                }, 300);
+            }
+        }
+
+        function handleTouchStart(e) {
+            isDragging = false;
+            touchStartTime = Date.now();
+            startX = e.touches[0].clientX;
+            currentX = startX;
+            e.preventDefault();
+        }
+
+        function handleTouchMove(e) {
+            const x = e.touches[0].clientX;
+            const diff = x - startX;
+            
+            if (Math.abs(diff) > 5) { // Consider it dragging after 5px movement
+                isDragging = true;
+            }
+            
+            if (isDragging && diff > 10) { // Only open if dragged to the right
+                whitepaperContainer.classList.add('active');
+            }
+            currentX = x;
+            e.preventDefault();
+        }
+
+        function handleTouchEnd(e) {
+            const touchDuration = Date.now() - touchStartTime;
+            
+            if (!isDragging && touchDuration < 300) { // It's a tap
+                docsTip.classList.add('touched');
+                setTimeout(() => {
+                    docsTip.classList.remove('touched');
+                }, 300);
+            }
+            isDragging = false;
+        }
+
+        function closeWhitepaper() {
+            whitepaperContainer.classList.remove('active');
+        }
+
+        // Existing menu functions
         function toggleDropdown(id) {
             document.getElementById(id).classList.toggle('active');
         }
