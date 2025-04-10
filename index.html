@@ -7,6 +7,38 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
+        /* Existing styles remain the same until we add the orb styles */
+        
+        /* Orb overlay styles */
+        .orb-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s ease;
+        }
+        
+        .orb-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        
+        #orbCanvas {
+            display: block;
+            width: 80vmin;
+            height: 80vmin;
+            transform: translateX(12px); /* Changed from 10px to 12px */
+        }
+        
+        /* Keep all your existing styles */
         .docs-tip {
             position: fixed;
             left: 0;
@@ -64,9 +96,46 @@
             justify-content: center;
             border-radius: 50%;
         }
+        
+        /* Updated menu styles for scrollability */
+        .menu {
+            position: fixed;
+            top: 50px;
+            right: -50%;
+            width: 50%;
+            max-width: 300px;
+            height: calc(100% - 50px);
+            background-color: rgba(26, 26, 26, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
+            transition: right 0.3s ease;
+            z-index: 1001;
+            overflow-y: auto;
+            overflow-x: hidden;
+            box-sizing: border-box;
+        }
+        
+        .dropdown-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            background-color: rgba(0, 0, 0, 0.2);
+        }
+        
+        .dropdown-content.active {
+            max-height: 500px;
+            overflow-y: auto;
+        }
     </style>
 </head>
 <body>
+    <!-- Orb Overlay -->
+    <div class="orb-overlay" id="orbOverlay">
+        <canvas id="orbCanvas"></canvas>
+    </div>
+
     <!-- Docs Tip -->
     <div class="docs-tip" id="docsTip">docs</div>
 
@@ -91,42 +160,42 @@
     
     <div class="menu-backdrop" id="menuBackdrop" onclick="closeMenu()"></div>
     
-    <!-- Original Side Menu -->
+    <!-- Scrollable Side Menu -->
     <div class="menu" id="sideMenu">
         <a href="#home" onclick="closeMenu()">Home</a>
         <a href="#community" onclick="closeMenu()">Community</a>
         
         <h3 class="menu-headline" onclick="toggleDropdown('services-dropdown')">Services</h3>
         <div class="dropdown-content" id="services-dropdown">
-            <a href="https://raydium.io/swap/?inputMint=sol&outputMint=oraiBbhuMd7MeVxyBjtnK8sggprf2NpHkeJaeHzpBFK" target="_blank" onclick="closeMenu()">
+            <a href="https://raydium.io/swap/?inputMint=sol&outputMint=oraiBbhuMd7MeVxyBjtnK8sggprf2NpHkeJaeHzpBFK" target="_blank" class="menu-item" onclick="showOrb(event)">
                 <img src="assets/icons/buy.svg" alt="Buy Icon" class="menu-icon"> Buy
             </a>
-            <a href="https://mesh.distilled.ai/staking?token=oraiBbhuMd7MeVxyBjtnK8sggprf2NpHkeJaeHzpBFK" target="_blank" onclick="closeMenu()">
+            <a href="https://mesh.distilled.ai/staking?token=oraiBbhuMd7MeVxyBjtnK8sggprf2NpHkeJaeHzpBFK" target="_blank" class="menu-item" onclick="showOrb(event)">
                 <img src="assets/icons/stake.svg" alt="Stake Icon" class="menu-icon"> Stake
             </a>
-            <a href="https://mesh.distilled.ai/dao/oraiBbhuMd7MeVxyBjtnK8sggprf2NpHkeJaeHzpBFK/proposals" target="_blank" onclick="closeMenu()">
+            <a href="https://mesh.distilled.ai/dao/oraiBbhuMd7MeVxyBjtnK8sggprf2NpHkeJaeHzpBFK/proposals" target="_blank" class="menu-item" onclick="showOrb(event)">
                 <img src="assets/icons/dao.svg" alt="DAO Icon" class="menu-icon"> DAO
             </a>
-            <a href="https://solscan.io/account/AWqnz28WQbLgrGDPQxctz6ao6wXq68RHFjfYeFZPgJx2#transfers" target="_blank" onclick="closeMenu()">
+            <a href="https://solscan.io/account/AWqnz28WQbLgrGDPQxctz6ao6wXq68RHFjfYeFZPgJx2#transfers" target="_blank" class="menu-item" onclick="showOrb(event)">
                 <img src="assets/icons/wallet.svg" alt="Wallet Icon" class="menu-icon"> Wallet
             </a>
-            <a href="https://agents.land/trading/oraiBbhuMd7MeVxyBjtnK8sggprf2NpHkeJaeHzpBFK" target="_blank" onclick="closeMenu()">
+            <a href="https://agents.land/trading/oraiBbhuMd7MeVxyBjtnK8sggprf2NpHkeJaeHzpBFK" target="_blank" class="menu-item" onclick="showOrb(event)">
                 <img src="assets/icons/agents-land.svg" alt="Agents.Land Icon" class="menu-icon"> Agents.Land
             </a>
-            <a href="https://mesh.distilled.ai/clan/@BankerADL" target="_blank" onclick="closeMenu()">
+            <a href="https://mesh.distilled.ai/clan/@BankerADL" target="_blank" class="menu-item" onclick="showOrb(event)">
                 <img src="assets/icons/mesh.svg" alt="Mesh Icon" class="menu-icon"> Mesh
             </a>
         </div>
 
         <h3 class="menu-headline" onclick="toggleDropdown('support-dropdown')">Support</h3>
         <div class="dropdown-content" id="support-dropdown">
-            <a href="#faq" onclick="closeMenu()">
+            <a href="#faq" class="menu-item" onclick="showOrb(event)">
                 <svg class="menu-icon" width="24" height="24" viewBox="0 0 24 24" fill="#000000" xmlns="http://www.w3.org/2000/svg">
                     <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-4h2v2h-2zm1.61-9.96c-2.06-.3-3.61 1.14-3.61 2.96h2c0-.55.45-1 1-1s1 .45 1 1c0 .3-.1 1.25-.64 1.86-.43.5-1.08.79-1.36 1.34v.4h2v-.1c0-.79.48-1.27 1.15-1.85.67-.58 1.18-1.4 1.18-2.35 0-1.31-.99-2.35-2.39-2.35z"/>
                 </svg>
                 FAQ
             </a>
-            <a href="contact.html" onclick="closeMenu()">
+            <a href="contact.html" class="menu-item" onclick="showOrb(event)">
                 <svg class="menu-icon" width="24" height="24" viewBox="0 0 24 24" fill="#000000" xmlns="http://www.w3.org/2000/svg">
                     <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4V8l8 5 8-5v10zm-8-7L4 6h16l-8 5z"/>
                 </svg>
@@ -178,6 +247,210 @@
     </footer>
 
     <script>
+        // Orb animation code
+        const orbCanvas = document.getElementById('orbCanvas');
+        const orbCtx = orbCanvas.getContext('2d');
+        const orbOverlay = document.getElementById('orbOverlay');
+        
+        // Set canvas size
+        function resizeOrbCanvas() {
+            const size = Math.min(window.innerWidth, window.innerHeight) * 0.8;
+            orbCanvas.width = size;
+            orbCanvas.height = size;
+        }
+        resizeOrbCanvas();
+        window.addEventListener('resize', resizeOrbCanvas);
+        
+        // Orb properties
+        const orb = {
+            x: orbCanvas.width / 2,
+            y: orbCanvas.height / 2,
+            radius: orbCanvas.width / 5,
+            glow: 0,
+            pulseSpeed: 0.015, 
+            tendrils: [],
+            ringEffect: 0
+        };
+        
+        // Create electric tendrils
+        function createTendrils() {
+            orb.tendrils = [];
+            const tendrilCount = 40 + Math.floor(Math.random() * 15);
+            
+            for (let i = 0; i < tendrilCount; i++) {
+                const angle = Math.random() * Math.PI * 2;
+                let color;
+                if (angle > Math.PI/2 && angle < 3*Math.PI/2) {
+                    color = `rgba(${130 + Math.random() * 60}, ${220 + Math.random() * 35}, ${80 + Math.random() * 50}, ${0.6 + Math.random() * 0.4})`;
+                } else {
+                    color = `rgba(${100 + Math.random() * 50}, ${200 + Math.random() * 55}, ${50 + Math.random() * 60}, ${0.6 + Math.random() * 0.4})`;
+                }
+                
+                if (Math.random() > 0.6) {
+                    color = `rgba(${220 + Math.random() * 35}, ${220 + Math.random() * 35}, ${220 + Math.random() * 35}, ${0.7 + Math.random() * 0.3})`;
+                }
+                
+                const length = orb.radius * (0.5 + Math.random() * 0.7);
+                const speed = 0.3 + Math.random() * 0.5;
+                const width = 0.5 + Math.random() * 1.5;
+                
+                orb.tendrils.push({
+                    angle,
+                    baseLength: length,
+                    length: length,
+                    currentLength: 0,
+                    speed,
+                    width,
+                    segments: [],
+                    color: color
+                });
+                
+                const segmentCount = 8 + Math.floor(Math.random() * 15);
+                for (let s = 0; s < segmentCount; s++) {
+                    orb.tendrils[i].segments.push({
+                        offset: s / segmentCount,
+                        variation: (Math.random() - 0.5) * 0.4
+                    });
+                }
+            }
+        }
+        
+        createTendrils();
+        
+        // Animation loop
+        function animateOrb() {
+            orbCtx.clearRect(0, 0, orbCanvas.width, orbCanvas.height);
+            
+            // Pulsing glow
+            orb.glow += orb.pulseSpeed;
+            const pulseFactor = 0.8 + Math.sin(orb.glow) * 0.2;
+            
+            // Draw outer glow
+            const gradient = orbCtx.createRadialGradient(
+                orb.x, orb.y, 0,
+                orb.x, orb.y, orb.radius * 1.8 * pulseFactor
+            );
+            gradient.addColorStop(0, 'rgba(220, 255, 100, 0.7)');
+            gradient.addColorStop(0.6, 'rgba(120, 255, 50, 0.3)');
+            gradient.addColorStop(1, 'rgba(50, 200, 20, 0)');
+            
+            orbCtx.fillStyle = gradient;
+            orbCtx.beginPath();
+            orbCtx.arc(orb.x, orb.y, orb.radius * 1.8 * pulseFactor, 0, Math.PI * 2);
+            orbCtx.fill();
+            
+            // Draw main orb
+            const orbGradient = orbCtx.createRadialGradient(
+                orb.x, orb.y, 0,
+                orb.x, orb.y, orb.radius * pulseFactor
+            );
+            orbGradient.addColorStop(0, 'rgb(200, 255, 100)');
+            orbGradient.addColorStop(0.4, 'rgb(150, 255, 0)');
+            orbGradient.addColorStop(0.7, 'rgba(100, 255, 20, 0.9)');
+            orbGradient.addColorStop(0.9, 'rgba(70, 230, 30, 0.5)');
+            
+            orbCtx.fillStyle = orbGradient;
+            orbCtx.beginPath();
+            orbCtx.arc(orb.x, orb.y, orb.radius * pulseFactor, 0, Math.PI * 2);
+            orbCtx.fill();
+            
+            // Draw electric ring
+            orb.ringEffect += 0.03;
+            orbCtx.strokeStyle = 'rgba(200, 255, 100, 0.8)';
+            orbCtx.lineWidth = 3 + Math.sin(orb.ringEffect) * 1.5;
+            orbCtx.beginPath();
+            orbCtx.arc(orb.x, orb.y, orb.radius * pulseFactor, 0, Math.PI * 2);
+            orbCtx.stroke();
+            
+            // Add a second, thinner ring with glow
+            orbCtx.shadowColor = 'rgba(160, 255, 60, 0.8)';
+            orbCtx.shadowBlur = 15;
+            orbCtx.strokeStyle = 'rgba(230, 255, 180, 0.9)';
+            orbCtx.lineWidth = 1.5;
+            orbCtx.beginPath();
+            orbCtx.arc(orb.x, orb.y, orb.radius * pulseFactor * 1.02, 0, Math.PI * 2);
+            orbCtx.stroke();
+            orbCtx.shadowBlur = 0;
+            
+            // Draw electric tendrils
+            orbCtx.lineCap = 'round';
+            orbCtx.lineJoin = 'round';
+            
+            orb.tendrils.forEach(tendril => {
+                // Animate tendril
+                tendril.angle += (Math.random() - 0.5) * 0.07;
+                tendril.currentLength = tendril.baseLength * (0.7 + Math.sin(orb.glow * tendril.speed) * 0.3);
+                
+                // Draw tendril with glow
+                orbCtx.shadowColor = tendril.color;
+                orbCtx.shadowBlur = 8;
+                orbCtx.strokeStyle = tendril.color;
+                orbCtx.lineWidth = tendril.width;
+                
+                orbCtx.beginPath();
+                let lastX = orb.x + Math.cos(tendril.angle) * orb.radius * pulseFactor;
+                let lastY = orb.y + Math.sin(tendril.angle) * orb.radius * pulseFactor;
+                orbCtx.moveTo(lastX, lastY);
+                
+                tendril.segments.forEach(segment => {
+                    const segLength = segment.offset * tendril.currentLength;
+                    const segAngle = tendril.angle + segment.variation;
+                    const segX = orb.x + Math.cos(tendril.angle) * (orb.radius * pulseFactor + segLength) + 
+                                 Math.cos(segAngle) * segLength * 0.4;
+                    const segY = orb.y + Math.sin(tendril.angle) * (orb.radius * pulseFactor + segLength) + 
+                                 Math.sin(segAngle) * segLength * 0.4;
+                    
+                    const randFactor = Math.random() * 8;
+                    const ctrlX = (lastX + segX) / 2 + (Math.random() - 0.5) * (15 + randFactor);
+                    const ctrlY = (lastY + segY) / 2 + (Math.random() - 0.5) * (15 + randFactor);
+                    
+                    orbCtx.quadraticCurveTo(ctrlX, ctrlY, segX, segY);
+                    lastX = segX;
+                    lastY = segY;
+                });
+                
+                orbCtx.stroke();
+                orbCtx.shadowBlur = 0;
+            });
+            
+            if (Math.random() < 0.02) {
+                createTendrils();
+            }
+            
+            requestAnimationFrame(animateOrb);
+        }
+        
+        animateOrb();
+
+        // Show orb function
+        function showOrb(event) {
+            event.preventDefault();
+            const targetUrl = event.currentTarget.href;
+            const isExternal = event.currentTarget.target === '_blank';
+            
+            orbOverlay.classList.add('active');
+            
+            setTimeout(() => {
+                orbOverlay.classList.remove('active');
+                closeMenu();
+                
+                if (isExternal) {
+                    window.open(targetUrl, '_blank');
+                } else {
+                    if (targetUrl.includes('#')) {
+                        // Internal anchor link
+                        const target = document.querySelector(targetUrl.split('#')[1]);
+                        if (target) {
+                            target.scrollIntoView({ behavior: 'smooth' });
+                        }
+                    } else {
+                        // Regular page link
+                        window.location.href = targetUrl;
+                    }
+                }
+            }, 5000); // Show orb for 5 seconds before proceeding
+        }
+
         // Improved docs tip functionality
         const docsTip = document.getElementById('docsTip');
         const whitepaperContainer = document.getElementById('whitepaperContainer');
@@ -194,7 +467,6 @@
 
         function handleDocsClick(e) {
             if (!isDragging) {
-                // Simple click - just show the pop effect
                 docsTip.classList.add('touched');
                 setTimeout(() => {
                     docsTip.classList.remove('touched');
@@ -215,11 +487,11 @@
             const x = e.touches[0].clientX;
             const diff = x - startX;
             
-            if (Math.abs(diff) > 5) { // Consider it dragging after 5px movement
+            if (Math.abs(diff) > 5) {
                 isDragging = true;
             }
             
-            if (isDragging && diff > 10) { // Only open if dragged to the right
+            if (isDragging && diff > 10) {
                 whitepaperContainer.classList.add('active');
             }
             currentX = x;
@@ -229,7 +501,7 @@
         function handleTouchEnd(e) {
             const touchDuration = Date.now() - touchStartTime;
             
-            if (!isDragging && touchDuration < 300) { // It's a tap
+            if (!isDragging && touchDuration < 300) {
                 docsTip.classList.add('touched');
                 setTimeout(() => {
                     docsTip.classList.remove('touched');
@@ -265,7 +537,7 @@
             } 
         }
         
-        document.querySelectorAll('.menu a[href^="#"]').forEach(link => { 
+        document.querySelectorAll('.menu a[href^="#"]:not(.menu-item)').forEach(link => { 
             link.addEventListener('click', function(e) { 
                 e.preventDefault(); 
                 var target = document.querySelector(this.getAttribute('href')); 
